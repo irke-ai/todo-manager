@@ -1,12 +1,14 @@
 'use client'
 
 import { Todo } from '@/lib/types'
+import { useTodoStore } from '@/lib/store'
 
 interface TodoItemProps {
   todo: Todo
 }
 
 export default function TodoItem({ todo }: TodoItemProps) {
+  const { toggleTodo, deleteTodo } = useTodoStore()
   const priorityColors = {
     high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
     medium: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
@@ -23,7 +25,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
         <input
           type="checkbox"
           checked={todo.completed}
-          onChange={() => console.log('Toggle:', todo.id)}
+          onChange={() => toggleTodo(todo.id)}
           className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
         />
         <div className="flex-1">
@@ -50,7 +52,7 @@ export default function TodoItem({ todo }: TodoItemProps) {
           )}
         </div>
         <button
-          onClick={() => console.log('Delete:', todo.id)}
+          onClick={() => deleteTodo(todo.id)}
           className="text-gray-400 hover:text-red-500 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
