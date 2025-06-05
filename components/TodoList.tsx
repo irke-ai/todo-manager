@@ -1,10 +1,10 @@
 'use client'
 
 import TodoItem from './TodoItem'
-import { useTodoStore } from '@/lib/store'
+import { useFilteredTodos } from '@/lib/store'
 
 export default function TodoList() {
-  const todos = useTodoStore((state) => state.todos)
+  const todos = useFilteredTodos()
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
       <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white">

@@ -42,12 +42,30 @@ export default function TodoItem({ todo }: TodoItemProps) {
             </span>
           </div>
           {todo.description && (
-            <p className={`text-sm ${
+            <p className={`text-sm mt-1 ${
               todo.completed 
                 ? 'text-gray-400 dark:text-gray-500' 
                 : 'text-gray-600 dark:text-gray-400'
             }`}>
               {todo.description}
+            </p>
+          )}
+          {todo.dueDate && (
+            <p className={`text-xs mt-2 ${
+              todo.completed 
+                ? 'text-gray-400 dark:text-gray-500' 
+                : new Date(todo.dueDate) < new Date() 
+                  ? 'text-red-600 dark:text-red-400'
+                  : 'text-gray-500 dark:text-gray-400'
+            }`}>
+              마감일: {new Date(todo.dueDate).toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+              {!todo.completed && new Date(todo.dueDate) < new Date() && ' (기한 초과)'}
             </p>
           )}
         </div>

@@ -1,5 +1,6 @@
 import TodoForm from '@/components/TodoForm'
 import TodoList from '@/components/TodoList'
+import TodoFilters from '@/components/TodoFilters'
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
 
       <div className="space-y-6">
         <TodoForm />
+        <TodoFilters />
         <TodoList />
       </div>
     </main>
