@@ -1,5 +1,6 @@
 'use client'
 
+import { memo } from 'react'
 import { Todo } from '@/lib/types'
 import { useTodoStore } from '@/lib/store'
 
@@ -7,7 +8,7 @@ interface TodoItemProps {
   todo: Todo
 }
 
-export default function TodoItem({ todo }: TodoItemProps) {
+const TodoItem = memo(function TodoItem({ todo }: TodoItemProps) {
   const { toggleTodo, deleteTodo } = useTodoStore()
   const priorityColors = {
     high: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
@@ -26,7 +27,8 @@ export default function TodoItem({ todo }: TodoItemProps) {
           type="checkbox"
           checked={todo.completed}
           onChange={() => toggleTodo(todo.id)}
-          className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+          className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500 cursor-pointer"
+          aria-label={`${todo.title} ${todo.completed ? '완료됨' : '미완료'}`}
         />
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
@@ -71,7 +73,9 @@ export default function TodoItem({ todo }: TodoItemProps) {
         </div>
         <button
           onClick={() => deleteTodo(todo.id)}
-          className="text-gray-400 hover:text-red-500 transition-colors"
+          className="text-gray-400 hover:text-red-500 transition-colors p-1 rounded
+                     focus:outline-none focus:ring-2 focus:ring-red-500"
+          aria-label={`${todo.title} 삭제`}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -80,4 +84,6 @@ export default function TodoItem({ todo }: TodoItemProps) {
       </div>
     </div>
   )
-}
+})
+
+export default TodoItem
