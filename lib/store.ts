@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 import { Todo } from './types'
 
 interface TodoStore {
@@ -21,7 +22,9 @@ interface TodoStore {
   setSort: (sortBy: TodoStore['sortBy'], sortOrder?: TodoStore['sortOrder']) => void
 }
 
-export const useTodoStore = create<TodoStore>((set) => ({
+export const useTodoStore = create<TodoStore>()(
+  persist(
+    (set) => ({
   todos: [],
   filter: { status: 'all', priority: 'all' },
   sortBy: 'createdAt',
@@ -71,7 +74,33 @@ export const useTodoStore = create<TodoStore>((set) => ({
     sortBy,
     sortOrder: sortOrder || state.sortOrder,
   })),
-}))
+    }),
+    {
+      name: 'todo-storage', // localStorage key
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        todos: state.todos.map(todo => ({
+          ...todo,
+          // Date 객체를 문자열로 변환
+          createdAt: todo.createdAt.toISOString(),
+          updatedAt: todo.updatedAt.toISOString(),
+          dueDate: todo.dueDate?.toISOString()
+        }))
+      }),
+      onRehydrateStorage: () => (state) => {
+        if (state) {
+          // 문자열을 Date 객체로 복원
+          state.todos = state.todos.map(todo => ({
+            ...todo,
+            createdAt: new Date(todo.createdAt),
+            updatedAt: new Date(todo.updatedAt),
+            dueDate: todo.dueDate ? new Date(todo.dueDate) : undefined
+          }))
+        }
+      }
+    }
+  )
+)
 
 // 필터링된 할 일 목록을 반환하는 selector
 export const useFilteredTodos = () => {
