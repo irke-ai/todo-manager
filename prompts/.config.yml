@@ -1,0 +1,25 @@
+# 프로젝트 공통 설정
+project_config:
+  auto_improvement: true
+  auto_commit: true
+  auto_test: true
+  
+code_style:
+  formatter: "auto-detect"
+  linter: "auto-detect"
+  style_guide: "auto-detect"
+  
+test_config:
+  framework: "auto-detect"
+  coverage_threshold: 80
+  run_on_save: true
+  
+commit_config:
+  conventional: true
+  prefix_pattern: "[STEP-{n}]"
+  auto_message: true
+  
+quality_config:
+  code_review: true
+  security_check: true
+  performance_check: true

@@ -1,0 +1,15 @@
+{
+  "project_total": {
+    "estimated_dev_hours": 0,
+    "actual_dev_hours": 0,
+    "hours_saved": 0,
+    "cost_saved": "$0",
+    "efficiency_gain": "0%"
+  },
+  "by_step": {},
+  "value_metrics": {
+    "features_delivered": 0,
+    "bugs_prevented": 0,
+    "performance_improvements": 0
+  }
+}

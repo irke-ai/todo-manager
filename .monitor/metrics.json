@@ -1,0 +1,19 @@
+{
+  "performance": {
+    "build_time": [],
+    "test_time": [],
+    "execution_time": []
+  },
+  "quality": {
+    "error_count": 0,
+    "warning_count": 0,
+    "code_coverage": 0,
+    "technical_debt": 0
+  },
+  "progress": {
+    "steps_completed": 0,
+    "total_steps": 0,
+    "current_step": null,
+    "estimated_completion": null
+  }
+}

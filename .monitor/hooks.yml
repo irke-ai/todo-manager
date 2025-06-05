@@ -1,0 +1,28 @@
+monitoring_hooks:
+  on_error_threshold:
+    max_errors: 3
+    action: "pause_and_analyze"
+    auto_fix: true
+    
+  on_test_failure:
+    retry_count: 2
+    action: "generate_fix_prompt"
+    analyze_pattern: true
+    
+  on_long_running:
+    timeout: 30min
+    action: "create_checkpoint"
+    notify: false
+    
+  on_step_complete:
+    action: "auto_commit_and_backup"
+    generate_summary: true
+    update_progress: true
+    
+  on_conflict:
+    action: "analyze_and_resolve"
+    fallback: "create_alternative"
+    
+  on_dependency_issue:
+    action: "auto_resolve"
+    update_lockfile: true
